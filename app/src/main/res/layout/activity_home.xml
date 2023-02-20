@@ -19,7 +19,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="20dp"
-            android:background="@drawable/circular_box_home"
+            android:background="@drawable/shape_circular_box_home"
             android:gravity="center"
             android:text="@string/home_default_initials"
             android:textColor="?colorSurface"
