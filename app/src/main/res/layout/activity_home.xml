@@ -8,7 +8,6 @@
     tools:context=".ui.activities.HomeActivity">
 
     <LinearLayout
-        android:id="@+id/ll_home_user"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center_vertical"
@@ -146,6 +145,7 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_home_task_lists"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -153,6 +153,7 @@
         />
 
     <TextView
+        android:id="@+id/tv_home_new_list"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="5dp"
