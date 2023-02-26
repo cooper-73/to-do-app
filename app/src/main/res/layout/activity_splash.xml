@@ -6,6 +6,7 @@
     tools:context=".ui.activities.SplashActivity"
     android:gravity="center"
     android:background="?colorSurface"
+    android:orientation="vertical"
     >
 
     <ImageView
