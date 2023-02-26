@@ -18,7 +18,7 @@
         />
 
     <EditText
-        android:id="@+id/et_new_list_title"
+        android:id="@+id/et_title_new_list_dialog"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginStart="24dp"
