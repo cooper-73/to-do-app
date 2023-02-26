@@ -1,11 +1,13 @@
 package com.cooper73.todoapp.ui.activities;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -22,6 +24,7 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        hideActionBar();
         initPresenter();
         bindUI();
         initUI();
@@ -47,6 +50,12 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
     @Override
     public void initEvents() {
 
+    }
+
+    @Override
+    public void hideActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null)  actionBar.hide();
     }
 
     @Override
