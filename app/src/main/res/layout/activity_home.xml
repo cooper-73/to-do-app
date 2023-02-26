@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".HomeActivity">
+    tools:context=".ui.activities.HomeActivity">
 
     <LinearLayout
         android:id="@+id/ll_home_user"
@@ -23,7 +23,8 @@
             android:gravity="center"
             android:text="@string/home_default_initials"
             android:textColor="?colorSurface"
-            tools:ignore="TextContrastCheck" />
+            tools:ignore="TextContrastCheck"
+            />
 
         <TextView
             android:id="@+id/tv_home_user_name"
@@ -47,7 +48,8 @@
             android:contentDescription="@string/search_icon_desc"
             android:src="@drawable/ic_baseline_search_24"
             app:tint="?colorPrimaryVariant"
-            tools:ignore="ImageContrastCheck" />
+            tools:ignore="ImageContrastCheck"
+            />
 
 
     </LinearLayout>
@@ -68,7 +70,8 @@
             android:contentDescription="@string/star_icon_desc"
             android:src="@drawable/ic_baseline_star_24"
             app:tint="?colorError"
-            tools:ignore="ImageContrastCheck" />
+            tools:ignore="ImageContrastCheck"
+            />
 
         <TextView
             android:layout_width="0dp"
@@ -109,7 +112,8 @@
             android:contentDescription="@string/house_icon_desc"
             android:src="@drawable/ic_baseline_house_siding_24"
             app:tint="?colorPrimaryVariant"
-            tools:ignore="ImageContrastCheck" />
+            tools:ignore="ImageContrastCheck"
+            />
 
         <TextView
             android:layout_width="0dp"
@@ -120,7 +124,8 @@
             android:textColor="?colorOnSurface"
             android:textSize="16sp"
             android:layout_weight="1"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            />
 
         <ImageView
             android:layout_width="24dp"
@@ -160,6 +165,7 @@
         android:text="@string/home_new_list_btn"
         android:textColor="?colorPrimaryVariant"
         android:textSize="14sp"
-        tools:ignore="TextContrastCheck" />
+        tools:ignore="TextContrastCheck"
+        />
 
 </LinearLayout>
