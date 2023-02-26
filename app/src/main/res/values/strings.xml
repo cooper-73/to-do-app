@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">ToDoApp</string>
+    <!--    Splash Activity-->
+    <string name="splash_image_desc">Splash screen image</string>
     <!--    Home Activity-->
     <string name="home_default_initials">CC</string>
     <string name="home_default_name">Cristhian Cruz</string>
@@ -11,4 +13,9 @@
     <string name="house_icon_desc">Tasks icon</string>
     <string name="home_new_list_btn">New List</string>
     <string name="home_task_list_title">Task List</string>
+    <!--    New List dialog-->
+    <string name="new_list_dialog_title">New list</string>
+    <string name="new_list_dialog_hint">Enter list title</string>
+    <string name="new_list_dialog_create">Create</string>
+    <string name="new_list_dialog_cancel">Cancel</string>
 </resources>
