@@ -2,6 +2,11 @@
     <string name="app_name">ToDoApp</string>
     <!--    Splash Activity-->
     <string name="splash_image_desc">Splash screen image</string>
+    <!--    Welcome Activity-->
+    <string name="welcome_image_desc">Welcome image</string>
+    <string name="welcome_title">Welcome to\n Uno To Do!</string>
+    <string name="welcome_sub_title">Start using the best To Do app</string>
+    <string name="welcome_get_started_btn">Get started</string>
     <!--    Home Activity-->
     <string name="home_default_initials">CC</string>
     <string name="home_default_name">Cristhian Cruz</string>

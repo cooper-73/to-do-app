@@ -3,6 +3,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.WelcomeActivity">
+    tools:context=".ui.activities.WelcomeActivity"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/uno_welcome"
+        android:contentDescription="@string/welcome_image_desc"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:gravity="center"
+        android:text="@string/welcome_title"
+        android:textColor="?colorOnSurface"
+        android:textSize="36sp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:gravity="center"
+        android:text="@string/welcome_sub_title"
+        android:textStyle="bold"
+        android:textColor="?colorPrimary"
+        android:textSize="16sp"
+        />
+
+    <Button
+        android:id="@+id/btn_welcome_get_started"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/shape_positive_button"
+        android:text="@string/welcome_get_started_btn"
+        android:textColor="?colorOnPrimary"
+        android:textAllCaps="false"
+        tools:ignore="TouchTargetSizeCheck"
+        />
 
 </LinearLayout>
