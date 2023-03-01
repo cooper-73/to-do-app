@@ -1,5 +1,6 @@
 package com.cooper73.todoapp.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -7,14 +8,19 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cooper73.todoapp.R;
+import com.cooper73.todoapp.ui.adapters.TaskListItemAdapter;
 import com.cooper73.todoapp.ui.fragments.CreateListDialogFragment;
+import com.cooper73.todoapp.ui.viewmodels.TaskListViewModel;
 import com.cooper73.todoapp.ui.views.DialogView;
 import com.cooper73.todoapp.ui.views.HomeView;
 
-public class HomeActivity extends AppCompatActivity implements HomeView, DialogView.listener {
+import java.util.ArrayList;
+
+public class HomeActivity extends AppCompatActivity implements HomeView, DialogView.listener, TaskListItemAdapter.Listener {
     private LinearLayout importantLinearLayout, tasksLinearLayout;
     private RecyclerView taskListsRecyclerView;
     private TextView initialsTextView, nameTextView, newListTextView;
@@ -47,7 +53,11 @@ public class HomeActivity extends AppCompatActivity implements HomeView, DialogV
 
     @Override
     public void initUI() {
-
+        ArrayList<TaskListViewModel> taskLists = new ArrayList<>();
+        taskLists.add(new TaskListViewModel(1, "Demo title"));
+        TaskListItemAdapter adapter = new TaskListItemAdapter(taskLists, this);
+        taskListsRecyclerView.setAdapter(adapter);
+        taskListsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
@@ -100,5 +110,11 @@ public class HomeActivity extends AppCompatActivity implements HomeView, DialogV
     @Override
     public void onDialogNegativeClick(DialogFragment dialog) {
         dialog.dismiss();
+    }
+
+    @Override
+    public void onRecyclerItemClick(TaskListViewModel taskList) {
+        Intent intent = new Intent(this, TaskListActivity.class);
+        startActivity(intent);
     }
 }
