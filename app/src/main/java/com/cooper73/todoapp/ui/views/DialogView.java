@@ -8,7 +8,7 @@ public interface DialogView {
     void bindUI(View view);
     void initUI();
     void initEvents();
-    interface listener {
+    interface Listener {
         void onDialogPositiveClick(DialogFragment dialog);
         void onDialogNegativeClick(DialogFragment dialog);
     }

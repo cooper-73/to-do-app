@@ -20,7 +20,7 @@ import com.cooper73.todoapp.ui.views.HomeView;
 
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity implements HomeView, DialogView.listener, TaskListItemAdapter.Listener {
+public class HomeActivity extends AppCompatActivity implements HomeView, DialogView.Listener, TaskListItemAdapter.Listener {
     private LinearLayout importantLinearLayout, tasksLinearLayout;
     private RecyclerView taskListsRecyclerView;
     private TextView initialsTextView, nameTextView, newListTextView;

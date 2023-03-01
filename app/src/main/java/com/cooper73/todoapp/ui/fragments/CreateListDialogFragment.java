@@ -25,14 +25,14 @@ import java.util.Objects;
 public class CreateListDialogFragment extends DialogFragment implements DialogView {
     private EditText titleEditText;
     private Button negativeButton, positiveButton;
-    private DialogView.listener listener;
+    private Listener listener;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
         try {
-            listener = (DialogView.listener) context;
+            listener = (Listener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context + " must implement DialogView.listener");
         }
