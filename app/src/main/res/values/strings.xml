@@ -23,4 +23,10 @@
     <string name="new_list_dialog_hint">Enter list title</string>
     <string name="new_list_dialog_create">Create</string>
     <string name="new_list_dialog_cancel">Cancel</string>
+    <!--    Task List Activity-->
+    <string name="task_list_to_do_btn">To Do</string>
+    <string name="task_list_completed_btn">Completed</string>
+    <string name="task_list_add_task_btn">Add a task</string>
+    <string name="task_list_task_completed_chk">Not completed</string>
+    <string name="task_list_task_important_chk">Not important</string>
 </resources>
