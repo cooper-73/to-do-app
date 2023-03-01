@@ -90,8 +90,11 @@ public class HomeActivity extends AppCompatActivity implements HomeView, DialogV
     }
 
     @Override
-    public void showTaskList() {
-
+    public void showTaskList(TaskListViewModel taskList) {
+        Intent intent = new Intent(this, TaskListActivity.class);
+        intent.putExtra("id", taskList.getId());
+        intent.putExtra("title", taskList.getTitle());
+        startActivity(intent);
     }
 
     @Override
@@ -114,7 +117,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView, DialogV
 
     @Override
     public void onRecyclerItemClick(TaskListViewModel taskList) {
-        Intent intent = new Intent(this, TaskListActivity.class);
-        startActivity(intent);
+        showTaskList(taskList);
     }
 }
