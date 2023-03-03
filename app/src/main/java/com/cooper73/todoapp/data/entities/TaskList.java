@@ -5,6 +5,8 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import java.util.Date;
+
 @Entity(
         tableName = "task_lists",
         foreignKeys = {
@@ -20,6 +22,9 @@ public class TaskList {
 
     @ColumnInfo(name = "title")
     private String title;
+
+    @ColumnInfo(name = "created_at")
+    private Date createdAt;
 
     public int getId() {
         return id;
@@ -43,5 +48,13 @@ public class TaskList {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }
