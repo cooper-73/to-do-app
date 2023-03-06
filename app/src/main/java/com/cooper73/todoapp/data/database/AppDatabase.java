@@ -6,12 +6,14 @@ import androidx.room.TypeConverters;
 
 import com.cooper73.todoapp.data.converters.DateConverter;
 import com.cooper73.todoapp.data.daos.TaskListDao;
+import com.cooper73.todoapp.data.daos.UserDao;
 import com.cooper73.todoapp.data.entities.Task;
 import com.cooper73.todoapp.data.entities.TaskList;
 import com.cooper73.todoapp.data.entities.User;
 
-@Database(entities = {User.class, TaskList.class, Task.class}, version = 1)
+@Database(entities = {User.class, TaskList.class, Task.class}, version = 3)
 @TypeConverters({DateConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
+    public abstract UserDao userDao();
     public abstract TaskListDao taskListDao();
 }

@@ -1,24 +1,29 @@
 package com.cooper73.todoapp.data.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Entity(
         tableName = "tasks",
         foreignKeys = {
                 @ForeignKey(entity = TaskList.class, parentColumns = "id", childColumns = "task_list_id")
-        }
+        },
+        indices = @Index(value="task_list_id")
 )
 public class Task {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @PrimaryKey
+    @NonNull
+    private String id;
 
     @ColumnInfo(name = "task_list_id")
-    private int taskListId;
+    private String taskListId;
 
     @ColumnInfo(name = "title")
     private String title;
@@ -38,19 +43,31 @@ public class Task {
     @ColumnInfo(name = "is_important")
     private boolean isImportant;
 
-    public int getId() {
+    public Task(String taskListId, String title, Date dueDate, String description, boolean isCompleted, boolean isImportant) {
+        this.id = UUID.randomUUID().toString();
+        this.taskListId = taskListId;
+        this.title = title;
+        this.createdAt = new Date();
+        this.dueDate = dueDate;
+        this.description = description;
+        this.isCompleted = isCompleted;
+        this.isImportant = isImportant;
+    }
+
+    @NonNull
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(@NonNull String id) {
         this.id = id;
     }
 
-    public int getTaskListId() {
+    public String getTaskListId() {
         return taskListId;
     }
 
-    public void setTaskListId(int taskListId) {
+    public void setTaskListId(String taskListId) {
         this.taskListId = taskListId;
     }
 
