@@ -1,16 +1,21 @@
 package com.cooper73.todoapp.data.database;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 
+import androidx.core.os.HandlerCompat;
 import androidx.room.Room;
 
-import com.cooper73.todoapp.data.daos.TaskListDao;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DBConnector {
 
     private static volatile DBConnector instance = null;
     private AppDatabase db;
-
+    private ExecutorService executorService;
+    Handler mainThreadHandler = HandlerCompat.createAsync(Looper.getMainLooper());
 
     private DBConnector() {
     }
@@ -18,7 +23,9 @@ public class DBConnector {
     private DBConnector(Context context) {
         this.db = Room
                 .databaseBuilder(context.getApplicationContext(), AppDatabase.class, "to-do-app-db")
+                .fallbackToDestructiveMigration()
                 .build();
+        this.executorService = Executors.newFixedThreadPool(4);
     }
 
     public static DBConnector getInstance(Context context) {
@@ -33,7 +40,15 @@ public class DBConnector {
         return instance;
     }
 
-    public TaskListDao getTaskListDao() {
-        return db.taskListDao();
+    public AppDatabase getDatabase() {
+        return db;
+    }
+
+    public ExecutorService getExecutorService() {
+        return executorService;
+    }
+
+    public Handler getMainThreadHandler() {
+        return mainThreadHandler;
     }
 }
