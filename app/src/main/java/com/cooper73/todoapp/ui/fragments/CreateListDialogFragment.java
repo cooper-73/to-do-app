@@ -18,11 +18,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.cooper73.todoapp.R;
-import com.cooper73.todoapp.ui.views.DialogView;
+import com.cooper73.todoapp.ui.views.InputDialogView;
 
 import java.util.Objects;
 
-public class CreateListDialogFragment extends DialogFragment implements DialogView {
+public class CreateListDialogFragment extends DialogFragment implements InputDialogView {
     private EditText titleEditText;
     private Button negativeButton, positiveButton;
     private Listener listener;
@@ -97,5 +97,10 @@ public class CreateListDialogFragment extends DialogFragment implements DialogVi
         });
         negativeButton.setOnClickListener(view -> listener.onDialogNegativeClick(this));
         positiveButton.setOnClickListener(view -> listener.onDialogPositiveClick(this));
+    }
+
+    @Override
+    public String getUserInput() {
+        return titleEditText.getText().toString();
     }
 }
