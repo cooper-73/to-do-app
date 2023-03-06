@@ -1,16 +1,24 @@
 package com.cooper73.todoapp.ui.viewmodels;
 
 public class TaskListViewModel {
-    private final int id;
+    private String id;
     private String title;
 
-    public TaskListViewModel(int id, String title) {
+    public TaskListViewModel() {
+
+    }
+
+    public TaskListViewModel(String id, String title) {
         this.id = id;
         this.title = title;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -20,4 +28,6 @@ public class TaskListViewModel {
     public void setTitle(String title) {
         this.title = title;
     }
+
+
 }
