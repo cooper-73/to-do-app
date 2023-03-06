@@ -12,18 +12,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cooper73.todoapp.R;
+import com.cooper73.todoapp.presentation.presenters.HomePresenter;
+import com.cooper73.todoapp.presentation.presenters.HomePresenterImpl;
 import com.cooper73.todoapp.ui.adapters.TaskListItemAdapter;
 import com.cooper73.todoapp.ui.fragments.CreateListDialogFragment;
 import com.cooper73.todoapp.ui.viewmodels.TaskListViewModel;
-import com.cooper73.todoapp.ui.views.DialogView;
 import com.cooper73.todoapp.ui.views.HomeView;
+import com.cooper73.todoapp.ui.views.InputDialogView;
 
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity implements HomeView, DialogView.Listener, TaskListItemAdapter.Listener {
+public class HomeActivity extends AppCompatActivity implements HomeView, InputDialogView.Listener, TaskListItemAdapter.Listener {
     private LinearLayout importantLinearLayout, tasksLinearLayout;
     private RecyclerView taskListsRecyclerView;
     private TextView initialsTextView, nameTextView, newListTextView;
+    private HomePresenter presenter;
+    private TaskListItemAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +38,12 @@ public class HomeActivity extends AppCompatActivity implements HomeView, DialogV
         bindUI();
         initUI();
         initEvents();
+        presenter.loadAllTaskLists();
     }
 
     @Override
     public void initPresenter() {
-
+        presenter = new HomePresenterImpl(HomeActivity.this);
     }
 
     @Override
@@ -53,10 +58,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView, DialogV
 
     @Override
     public void initUI() {
-        ArrayList<TaskListViewModel> taskLists = new ArrayList<>();
-        taskLists.add(new TaskListViewModel(1, "Demo title"));
-        TaskListItemAdapter adapter = new TaskListItemAdapter(taskLists, this);
-        taskListsRecyclerView.setAdapter(adapter);
         taskListsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
@@ -90,6 +91,12 @@ public class HomeActivity extends AppCompatActivity implements HomeView, DialogV
     }
 
     @Override
+    public void showTaskLists(ArrayList<TaskListViewModel> taskLists) {
+        adapter = new TaskListItemAdapter(taskLists, this);
+        taskListsRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
     public void showTaskList(TaskListViewModel taskList) {
         Intent intent = new Intent(this, TaskListActivity.class);
         intent.putExtra("id", taskList.getId());
@@ -105,14 +112,21 @@ public class HomeActivity extends AppCompatActivity implements HomeView, DialogV
     }
 
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
-        // Create new list
-        dialog.dismiss();
+    public void notifyNewTaskListInserted(int position) {
+        adapter.notifyItemInserted(position);
     }
 
     @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-        dialog.dismiss();
+    public void onDialogPositiveClick(InputDialogView dialog) {
+        if (dialog != null) {
+            ((DialogFragment) dialog).dismiss();
+            presenter.createTaskList(dialog.getUserInput());
+        }
+    }
+
+    @Override
+    public void onDialogNegativeClick(InputDialogView dialog) {
+        if (dialog != null) ((DialogFragment) dialog).dismiss();
     }
 
     @Override
