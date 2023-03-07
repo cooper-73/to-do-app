@@ -29,4 +29,7 @@
     <string name="task_list_add_task_btn">Add a task</string>
     <string name="task_list_task_completed_chk">Not completed</string>
     <string name="task_list_task_important_chk">Not important</string>
+    <!--    Task List Menu-->
+    <string name="menu_action_edit_title">Edit title</string>
+    <string name="menu_action_delete_title">Delete Task List</string>
 </resources>
