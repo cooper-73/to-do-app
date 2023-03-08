@@ -6,11 +6,11 @@ import com.cooper73.todoapp.data.entities.TaskList;
 
 import java.util.List;
 
-public class TaskListsInteractorImpl implements TaskListsInteractor {
+public class HomeInteractorImpl implements HomeInteractor {
 
-    private final TaskListsInteractor.Callbacks callbacks;
+    private final HomeInteractor.Callbacks callbacks;
 
-    public TaskListsInteractorImpl(Callbacks callbacks) {
+    public HomeInteractorImpl(Callbacks callbacks) {
         this.callbacks = callbacks;
     }
 

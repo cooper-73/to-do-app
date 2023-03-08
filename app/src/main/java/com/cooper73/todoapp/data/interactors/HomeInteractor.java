@@ -4,7 +4,7 @@ import com.cooper73.todoapp.data.entities.TaskList;
 
 import java.util.List;
 
-public interface TaskListsInteractor {
+public interface HomeInteractor {
     void getAllTaskLists(String userId);
     void createTaskList(String userId, String title);
 
