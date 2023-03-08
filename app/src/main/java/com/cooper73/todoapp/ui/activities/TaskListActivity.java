@@ -17,6 +17,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cooper73.todoapp.R;
+import com.cooper73.todoapp.presentation.presenters.TaskListPresenter;
+import com.cooper73.todoapp.presentation.presenters.TaskListPresenterImpl;
 import com.cooper73.todoapp.ui.views.TaskListView;
 
 public class TaskListActivity extends AppCompatActivity implements TaskListView {
@@ -24,6 +26,7 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView 
     private TextView toDoTasksTextView, completedTasksTextView, addTaskTextView;
     private View toDoTasksLine, completedTasksLine;
     private RecyclerView tasksRecyclerView;
+    private TaskListPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +63,7 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView 
 
     @Override
     public void initPresenter() {
-
+        presenter = new TaskListPresenterImpl(this);
     }
 
     @Override
@@ -96,20 +99,27 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView 
         int color = getColorFromAttribute(com.google.android.material.R.attr.colorPrimaryVariant);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar == null)  return;
-        if (taskListTitle != null)
-            actionBar.setTitle(taskListTitle);
+        setActionBarTitle(taskListTitle);
         actionBar.setBackgroundDrawable(new ColorDrawable(color));
         actionBar.setElevation(0);
     }
 
     @Override
+    public void setActionBarTitle(String title) {
+        this.taskListTitle = title;
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null && title != null)
+            actionBar.setTitle(title);
+    }
+
+    @Override
     public void showRenameListDialog() {
-        Toast.makeText(this, "Renaming", Toast.LENGTH_SHORT).show();
+        presenter.renameTaskList(taskListId, "New Title");
     }
 
     @Override
     public void showDeleteListDialog() {
-        Toast.makeText(this, "Deleting", Toast.LENGTH_SHORT).show();
+        presenter.deleteTaskList(taskListId);
     }
 
     @Override
@@ -155,6 +165,11 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView 
     @Override
     public void showAddTaskActivity() {
         Toast.makeText(this, "Adding", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void finishActivity() {
+        finish();
     }
 
     public int getColorFromAttribute(int attributeResId) {
