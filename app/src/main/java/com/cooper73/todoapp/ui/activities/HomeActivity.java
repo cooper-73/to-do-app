@@ -38,7 +38,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView, InputDi
         bindUI();
         initUI();
         initEvents();
-        presenter.loadAllTaskLists();
     }
 
     @Override
@@ -132,5 +131,11 @@ public class HomeActivity extends AppCompatActivity implements HomeView, InputDi
     @Override
     public void onRecyclerItemClick(TaskListViewModel taskList) {
         showTaskList(taskList);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.loadAllTaskLists();
     }
 }
