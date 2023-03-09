@@ -34,7 +34,7 @@ public class CreateListDialogFragment extends DialogFragment implements InputDia
         try {
             listener = (Listener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context + " must implement DialogView.listener");
+            throw new ClassCastException(context + " must implement InputDialogView.Listener");
         }
     }
 
