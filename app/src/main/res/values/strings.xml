@@ -32,4 +32,14 @@
     <!--    Task List Menu-->
     <string name="menu_action_edit_title">Edit title</string>
     <string name="menu_action_delete_title">Delete Task List</string>
+    <!--    Rename List Dialog-->
+    <string name="rename_list_dialog_title">Rename list</string>
+    <string name="rename_list_dialog_hint">Enter new title</string>
+    <string name="rename_list_dialog_rename">Rename</string>
+    <string name="rename_list_dialog_cancel">Cancel</string>
+    <!--    Delete List Dialog-->
+    <string name="delete_list_dialog_title">Are you sure?</string>
+    <string name="delete_list_dialog_msg">List will be permanently deleted</string>
+    <string name="delete_list_dialog_delete">Delete</string>
+    <string name="delete_list_dialog_cancel">Cancel</string>
 </resources>
