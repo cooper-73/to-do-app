@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_small_dialog"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:text="@string/delete_list_dialog_title"
+        android:textSize="22sp"
+        android:textColor="?colorOnSurface"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/delete_list_dialog_msg"
+        android:textColor="?colorOnSurfaceLowBrush"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:gravity="end"
+        >
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_negative_delete_list_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:minWidth="0dp"
+            android:text="@string/delete_list_dialog_cancel"
+            android:textColor="?colorPrimary"
+            android:textAllCaps="false"
+            android:background="@drawable/shape_negative_button"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_positive_delete_list_dialog"
+            android:layout_width="89dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/delete_list_dialog_delete"
+            android:textColor="?colorOnPrimary"
+            android:textAllCaps="false"
+            android:background="@drawable/shape_positive_alert_button"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
