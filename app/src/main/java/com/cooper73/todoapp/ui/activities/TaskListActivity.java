@@ -14,14 +14,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cooper73.todoapp.R;
 import com.cooper73.todoapp.presentation.presenters.TaskListPresenter;
 import com.cooper73.todoapp.presentation.presenters.TaskListPresenterImpl;
+import com.cooper73.todoapp.ui.fragments.DeleteListDialogFragment;
+import com.cooper73.todoapp.ui.fragments.RenameListDialogFragment;
+import com.cooper73.todoapp.ui.views.DialogView;
+import com.cooper73.todoapp.ui.views.InputDialogView;
 import com.cooper73.todoapp.ui.views.TaskListView;
 
-public class TaskListActivity extends AppCompatActivity implements TaskListView {
+public class TaskListActivity extends AppCompatActivity implements TaskListView, InputDialogView.Listener, DialogView.Listener {
     private String taskListId, taskListTitle;
     private TextView toDoTasksTextView, completedTasksTextView, addTaskTextView;
     private View toDoTasksLine, completedTasksLine;
@@ -114,12 +119,16 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView 
 
     @Override
     public void showRenameListDialog() {
-        presenter.renameTaskList(taskListId, "New Title");
+        DialogFragment dialog = new RenameListDialogFragment();
+        dialog.setCancelable(false);
+        dialog.show(getSupportFragmentManager(), "RenameListDialogFragment");
     }
 
     @Override
     public void showDeleteListDialog() {
-        presenter.deleteTaskList(taskListId);
+        DialogFragment dialog = new DeleteListDialogFragment();
+        dialog.setCancelable(false);
+        dialog.show(getSupportFragmentManager(), "DeleteListDialogFragment");
     }
 
     @Override
@@ -176,5 +185,34 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView 
         TypedValue typedValue = new TypedValue();
         getTheme().resolveAttribute(attributeResId, typedValue, true);
         return ContextCompat.getColor(this, typedValue.resourceId);
+    }
+
+    @Override
+    public void onDialogPositiveClick(InputDialogView dialog) {
+        if (dialog != null) {
+            ((DialogFragment) dialog).dismiss();
+            String newTitle = dialog.getUserInput();
+            presenter.renameTaskList(taskListId, newTitle);
+        }
+    }
+
+    @Override
+    public void onDialogNegativeClick(InputDialogView dialog) {
+        if (dialog != null)
+            ((DialogFragment) dialog).dismiss();
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogView dialog) {
+        if (dialog != null) {
+            ((DialogFragment) dialog).dismiss();
+            presenter.deleteTaskList(taskListId);
+        }
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogView dialog) {
+        if (dialog != null)
+            ((DialogFragment) dialog).dismiss();
     }
 }
