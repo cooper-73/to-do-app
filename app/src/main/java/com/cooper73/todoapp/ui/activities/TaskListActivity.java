@@ -15,16 +15,22 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cooper73.todoapp.R;
 import com.cooper73.todoapp.presentation.presenters.TaskListPresenter;
 import com.cooper73.todoapp.presentation.presenters.TaskListPresenterImpl;
+import com.cooper73.todoapp.ui.adapters.TaskItemAdapter;
 import com.cooper73.todoapp.ui.fragments.DeleteListDialogFragment;
 import com.cooper73.todoapp.ui.fragments.RenameListDialogFragment;
+import com.cooper73.todoapp.ui.viewmodels.TaskViewModel;
 import com.cooper73.todoapp.ui.views.DialogView;
 import com.cooper73.todoapp.ui.views.InputDialogView;
 import com.cooper73.todoapp.ui.views.TaskListView;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 public class TaskListActivity extends AppCompatActivity implements TaskListView, InputDialogView.Listener, DialogView.Listener {
     private String taskListId, taskListTitle;
@@ -43,6 +49,7 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
         bindUI();
         initUI();
         initEvents();
+        showToDoTasks();
     }
 
     @Override
@@ -83,7 +90,7 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
 
     @Override
     public void initUI() {
-
+        tasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
@@ -153,7 +160,26 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
 
     @Override
     public void showToDoTasks() {
+        ArrayList<TaskViewModel> arrayList = new ArrayList<>();
+        arrayList.add(new TaskViewModel(
+                "1",
+                "Test Task",
+                new Date(),
+                new Date(),
+                "Short description",
+                true,
+                false));
+        arrayList.add(new TaskViewModel(
+                "2",
+                "Test Task 2",
+                new Date(),
+                new Date(),
+                "Short description 2",
+                false,
+                true));
 
+        TaskItemAdapter adapter = new TaskItemAdapter(arrayList);
+        tasksRecyclerView.setAdapter(adapter);
     }
 
     @Override
