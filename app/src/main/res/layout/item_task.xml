@@ -15,6 +15,7 @@
         android:layout_height="match_parent"
         android:layout_marginStart="10dp"
         android:contentDescription="@string/task_list_task_completed_chk"
+        android:buttonTint="?colorOnSurfaceMediumBrush"
         />
 
     <LinearLayout
