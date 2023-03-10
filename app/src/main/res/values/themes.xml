@@ -17,6 +17,7 @@
         <!-- Surface brand color-->
         <item name="colorSurface">@color/white</item>
         <item name="colorOnSurface">@color/baltic_sea</item>
+        <item name="colorOnSurfaceMediumBrush">@color/baltic_sea_60</item>
         <item name="colorOnSurfaceLowBrush">@color/baltic_sea_38</item>
         <item name="colorOnSurfaceDraggedBrush">@color/baltic_sea_16</item>
         <!-- Error brand color-->
