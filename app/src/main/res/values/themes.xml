@@ -24,4 +24,22 @@
         <item name="colorError">@color/brink_pink</item>
         <item name="colorOnError">@color/white</item>
     </style>
+
+    <style name="CompletedCheckBox" parent="Base.Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:theme">@style/CompletedCheckBoxTheme</item>
+    </style>
+
+    <style name="CompletedCheckBoxTheme">
+        <item name="colorControlNormal">?colorOnSurfaceMediumBrush</item>
+        <item name="colorControlActivated">?colorPrimary</item>
+    </style>
+
+    <style name="ImportantCheckBox" parent="Base.Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:theme">@style/ImportantCheckBoxTheme</item>
+    </style>
+
+    <style name="ImportantCheckBoxTheme">
+        <item name="colorControlNormal">?colorOnSurfaceMediumBrush</item>
+        <item name="colorControlActivated">?colorError</item>
+    </style>
 </resources>
