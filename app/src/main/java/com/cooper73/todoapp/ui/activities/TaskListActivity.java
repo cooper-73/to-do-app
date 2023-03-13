@@ -1,12 +1,19 @@
 package com.cooper73.todoapp.ui.activities;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,11 +39,13 @@ import com.cooper73.todoapp.ui.views.TaskListView;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class TaskListActivity extends AppCompatActivity implements TaskListView, InputDialogView.Listener, DialogView.Listener {
+public class TaskListActivity extends AppCompatActivity implements TaskListView, InputDialogView.Listener, DialogView.Listener, TaskItemAdapter.Listener {
     private String taskListId, taskListTitle;
-    private TextView toDoTasksTextView, completedTasksTextView, addTaskTextView;
+    private TextView toDoTasksTextView, completedTasksTextView;
+    private EditText addTaskEditText;
     private View toDoTasksLine, completedTasksLine;
     private RecyclerView tasksRecyclerView;
+    private LinearLayout addTaskContainerLinearLayout;
     private TaskListPresenter presenter;
 
     @Override
@@ -50,6 +59,23 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
         initUI();
         initEvents();
         showToDoTasks();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if ( v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
     }
 
     @Override
@@ -85,7 +111,8 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
         toDoTasksLine = findViewById(R.id.line_task_list_to_do);
         completedTasksLine = findViewById(R.id.line_task_list_completed);
         tasksRecyclerView = findViewById(R.id.rv_task_list_tasks);
-        addTaskTextView = findViewById(R.id.tv_task_list_add_task);
+        addTaskContainerLinearLayout = findViewById(R.id.ll_task_list_add_task_container);
+        addTaskEditText = findViewById(R.id.et_task_list_add_task);
     }
 
     @Override
@@ -97,7 +124,7 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
     public void initEvents() {
         toDoTasksTextView.setOnClickListener(v -> onClickToDoTasks());
         completedTasksTextView.setOnClickListener(v -> onClickCompletedTasks());
-        addTaskTextView.setOnClickListener(v -> showAddTaskActivity());
+        addTaskEditText.setOnFocusChangeListener((v, hasFocus) -> setAddTaskEditTextOnFocusChange(hasFocus));
     }
 
     @Override
@@ -178,7 +205,7 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
                 false,
                 true));
 
-        TaskItemAdapter adapter = new TaskItemAdapter(arrayList);
+        TaskItemAdapter adapter = new TaskItemAdapter(arrayList, this);
         tasksRecyclerView.setAdapter(adapter);
     }
 
@@ -200,6 +227,29 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
     @Override
     public void showAddTaskActivity() {
         Toast.makeText(this, "Adding", Toast.LENGTH_SHORT).show();
+    }
+
+    public void setAddTaskEditTextOnFocusChange(boolean isFocused) {
+        if (isFocused) {
+            addTaskContainerLinearLayout.setBackground(new ColorDrawable(
+                    getColorFromAttribute(com.google.android.material.R.attr.colorSurface)
+            ));
+            addTaskEditText.setHeight(58);
+            addTaskEditText.setBackgroundResource(androidx.appcompat.R.drawable.abc_edit_text_material);
+            addTaskEditText.setText("");
+            addTaskEditText.setTextColor(getColorFromAttribute(com.google.android.material.R.attr.colorOnSurface));
+            addTaskEditText.setTextSize(16);
+
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(addTaskEditText, InputMethodManager.SHOW_IMPLICIT);
+        } else {
+            addTaskContainerLinearLayout.setBackground(new ColorDrawable(Color.TRANSPARENT));
+            addTaskEditText.setHeight(40);
+            addTaskEditText.setBackgroundResource(R.drawable.shape_add_task_btn);
+            addTaskEditText.setText("Add a task");
+            addTaskEditText.setTextColor(getColorFromAttribute(com.google.android.material.R.attr.colorOnPrimary));
+            addTaskEditText.setTextSize(14);
+        }
     }
 
     @Override
@@ -240,5 +290,20 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
     public void onDialogNegativeClick(DialogView dialog) {
         if (dialog != null)
             ((DialogFragment) dialog).dismiss();
+    }
+
+    @Override
+    public void onCompletedCheckBoxClick(TaskViewModel task) {
+
+    }
+
+    @Override
+    public void onRecyclerItemClick(TaskViewModel task) {
+
+    }
+
+    @Override
+    public void onImportantCheckBoxClick(TaskViewModel task) {
+
     }
 }
