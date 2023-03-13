@@ -5,12 +5,15 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -47,6 +50,7 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
     private RecyclerView tasksRecyclerView;
     private LinearLayout addTaskContainerLinearLayout;
     private TaskListPresenter presenter;
+    private InputMethodManager imm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +104,16 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
     }
 
     @Override
+    public void onBackPressed() {
+        if (addTaskEditText != null && addTaskEditText.hasFocus()) {
+            addTaskEditText.clearFocus();
+            return;
+        }
+
+        super.onBackPressed();
+    }
+
+    @Override
     public void initPresenter() {
         presenter = new TaskListPresenterImpl(this);
     }
@@ -113,6 +127,7 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
         tasksRecyclerView = findViewById(R.id.rv_task_list_tasks);
         addTaskContainerLinearLayout = findViewById(R.id.ll_task_list_add_task_container);
         addTaskEditText = findViewById(R.id.et_task_list_add_task);
+        imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
     }
 
     @Override
@@ -125,6 +140,38 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
         toDoTasksTextView.setOnClickListener(v -> onClickToDoTasks());
         completedTasksTextView.setOnClickListener(v -> onClickCompletedTasks());
         addTaskEditText.setOnFocusChangeListener((v, hasFocus) -> setAddTaskEditTextOnFocusChange(hasFocus));
+        addTaskEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length() == 0 && addTaskEditText.hasFocus()) {
+                    addTaskEditText.setError("The item cannot be empty");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        addTaskEditText.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                if (addTaskEditText.getText().toString().length() != 0) {
+                    imm.hideSoftInputFromWindow(addTaskEditText.getWindowToken(), 0);
+                    addTaskEditText.clearFocus();
+//                    Send to presenter
+                    return false;
+                } else {
+                    return true;
+                }
+
+            }
+            return false;
+        });
     }
 
     @Override
@@ -236,18 +283,17 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
             ));
             addTaskEditText.setHeight(58);
             addTaskEditText.setBackgroundResource(androidx.appcompat.R.drawable.abc_edit_text_material);
-            addTaskEditText.setText("");
-            addTaskEditText.setTextColor(getColorFromAttribute(com.google.android.material.R.attr.colorOnSurface));
+            addTaskEditText.setHintTextColor(getColorFromAttribute(R.attr.colorOnSurfaceLowBrush));
             addTaskEditText.setTextSize(16);
 
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.showSoftInput(addTaskEditText, InputMethodManager.SHOW_IMPLICIT);
         } else {
             addTaskContainerLinearLayout.setBackground(new ColorDrawable(Color.TRANSPARENT));
             addTaskEditText.setHeight(40);
             addTaskEditText.setBackgroundResource(R.drawable.shape_add_task_btn);
-            addTaskEditText.setText("Add a task");
-            addTaskEditText.setTextColor(getColorFromAttribute(com.google.android.material.R.attr.colorOnPrimary));
+            addTaskEditText.setError(null);
+            addTaskEditText.setText("");
+            addTaskEditText.setHintTextColor(getColorFromAttribute(com.google.android.material.R.attr.colorOnPrimary));
             addTaskEditText.setTextSize(14);
         }
     }
