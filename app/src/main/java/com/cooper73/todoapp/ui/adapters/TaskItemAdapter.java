@@ -16,9 +16,17 @@ import java.util.ArrayList;
 
 public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.ViewHolder> {
     private final ArrayList<TaskViewModel> tasks;
+    private final Listener listener;
 
-    public TaskItemAdapter(ArrayList<TaskViewModel> tasks) {
+    public TaskItemAdapter(ArrayList<TaskViewModel> tasks, Listener listener) {
         this.tasks = tasks;
+        this.listener = listener;
+    }
+
+    public interface Listener {
+        void onCompletedCheckBoxClick(TaskViewModel task);
+        void onRecyclerItemClick(TaskViewModel task);
+        void onImportantCheckBoxClick(TaskViewModel task);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -52,6 +60,15 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.ViewHo
         holder.titleTextView.setText(task.getTitle());
         holder.detailsTextView.setText(task.getDueDate().toString());
         holder.importantCheckBox.setChecked(task.isImportant());
+
+//        holder.completedCheckBox.setOnCheckedChangeListener(
+//
+//        });
+//
+//
+//        holder.importantCheckBox.setOnClickListener(v -> {
+//
+//        });
     }
 
     @Override
