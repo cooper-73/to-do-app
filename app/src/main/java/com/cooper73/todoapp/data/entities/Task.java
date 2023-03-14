@@ -28,30 +28,25 @@ public class Task {
     @ColumnInfo(name = "title")
     private String title;
 
-    @ColumnInfo(name = "created_at")
+    @ColumnInfo(name = "created_at", defaultValue = "CURRENT_TIMESTAMP")
     private Date createdAt;
 
-    @ColumnInfo(name = "due_date")
+    @ColumnInfo(name = "due_date", defaultValue = "NULL")
     private Date dueDate;
 
-    @ColumnInfo(name = "description")
+    @ColumnInfo(name = "description", defaultValue = "NULL")
     private String description;
 
-    @ColumnInfo(name = "is_completed")
+    @ColumnInfo(name = "is_completed", defaultValue = "0")
     private boolean isCompleted;
 
-    @ColumnInfo(name = "is_important")
+    @ColumnInfo(name = "is_important", defaultValue = "0")
     private boolean isImportant;
 
-    public Task(String taskListId, String title, Date dueDate, String description, boolean isCompleted, boolean isImportant) {
+    public Task(String taskListId, String title) {
         this.id = UUID.randomUUID().toString();
         this.taskListId = taskListId;
         this.title = title;
-        this.createdAt = new Date();
-        this.dueDate = dueDate;
-        this.description = description;
-        this.isCompleted = isCompleted;
-        this.isImportant = isImportant;
     }
 
     @NonNull
