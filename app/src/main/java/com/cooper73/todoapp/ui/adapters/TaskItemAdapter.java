@@ -58,7 +58,8 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.ViewHo
 
         holder.completedCheckBox.setChecked(task.isCompleted());
         holder.titleTextView.setText(task.getTitle());
-        holder.detailsTextView.setText(task.getDueDate().toString());
+        if (task.getDueDate() != null)
+            holder.detailsTextView.setText(task.getDueDate().toString());
         holder.importantCheckBox.setChecked(task.isImportant());
 
 //        holder.completedCheckBox.setOnCheckedChangeListener(
