@@ -9,11 +9,13 @@ public interface TaskListInteractor {
     void deleteTaskList(String taskListId);
     void getToDoTasks(String taskListId);
     void getCompletedTasks(String taskListId);
+    void addTask(String taskListId, String title);
 
     interface Callbacks {
         void successRenameTaskList(String newTitle);
         void successDeleteTaskList();
         void successGetToDoTasks(List<Task> toDoTasks);
         void successCompletedTasks(List<Task> completedTasks);
+        void successAddTask(Task newTask);
     }
 }

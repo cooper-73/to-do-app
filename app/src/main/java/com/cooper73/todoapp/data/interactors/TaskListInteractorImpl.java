@@ -1,8 +1,12 @@
 package com.cooper73.todoapp.data.interactors;
 
 import com.cooper73.todoapp.MyApplication;
+import com.cooper73.todoapp.data.daos.TaskDao;
 import com.cooper73.todoapp.data.daos.TaskListDao;
+import com.cooper73.todoapp.data.entities.Task;
 import com.cooper73.todoapp.data.entities.TaskList;
+
+import java.util.List;
 
 public class TaskListInteractorImpl implements TaskListInteractor {
     private final TaskListInteractor.Callbacks callbacks;
@@ -42,11 +46,41 @@ public class TaskListInteractorImpl implements TaskListInteractor {
 
     @Override
     public void getToDoTasks(String taskListId) {
-
+        TaskDao taskDao = MyApplication.getDatabase().taskDao();
+        MyApplication.getExecutorService().execute(() -> {
+            try {
+                List<Task> toDoTasks = taskDao.getAllToDoByTaskListId(taskListId);
+                callbacks.successGetToDoTasks(toDoTasks);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
     public void getCompletedTasks(String taskListId) {
+        TaskDao taskDao = MyApplication.getDatabase().taskDao();
+        MyApplication.getExecutorService().execute(() -> {
+            try {
+                List<Task> completedTasks = taskDao.getAllCompletedByTaskListId(taskListId);
+                callbacks.successCompletedTasks(completedTasks);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
+    @Override
+    public void addTask(String taskListId, String title) {
+        TaskDao taskDao = MyApplication.getDatabase().taskDao();
+        MyApplication.getExecutorService().execute(() -> {
+            try {
+                Task newTask = new Task(taskListId, title);
+                taskDao.insertNewTask(newTask);
+                callbacks.successAddTask(newTask);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

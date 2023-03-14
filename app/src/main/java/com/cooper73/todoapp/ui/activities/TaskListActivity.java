@@ -40,7 +40,6 @@ import com.cooper73.todoapp.ui.views.InputDialogView;
 import com.cooper73.todoapp.ui.views.TaskListView;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class TaskListActivity extends AppCompatActivity implements TaskListView, InputDialogView.Listener, DialogView.Listener, TaskItemAdapter.Listener {
     private String taskListId, taskListTitle;
@@ -48,9 +47,11 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
     private EditText addTaskEditText;
     private View toDoTasksLine, completedTasksLine;
     private RecyclerView tasksRecyclerView;
+    private TaskItemAdapter adapter;
     private LinearLayout addTaskContainerLinearLayout;
     private TaskListPresenter presenter;
     private InputMethodManager imm;
+    private boolean isToDoTasksSelected = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,6 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
         bindUI();
         initUI();
         initEvents();
-        showToDoTasks();
     }
 
     @Override
@@ -115,7 +115,7 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
 
     @Override
     public void initPresenter() {
-        presenter = new TaskListPresenterImpl(this);
+        presenter = new TaskListPresenterImpl(this, taskListId);
     }
 
     @Override
@@ -160,10 +160,11 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
         });
         addTaskEditText.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                if (addTaskEditText.getText().toString().length() != 0) {
+                String taskTitle = addTaskEditText.getText().toString();
+                if (taskTitle.length() != 0) {
                     imm.hideSoftInputFromWindow(addTaskEditText.getWindowToken(), 0);
                     addTaskEditText.clearFocus();
-//                    Send to presenter
+                    presenter.addTask(taskListId, taskTitle);
                     return false;
                 } else {
                     return true;
@@ -220,6 +221,8 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
         toDoTasksLine.setVisibility(View.VISIBLE);
         completedTasksTextView.setTextColor(offColor);
         completedTasksLine.setVisibility(View.INVISIBLE);
+        isToDoTasksSelected = true;
+        presenter.loadToDoTasks(taskListId);
     }
 
     @Override
@@ -230,34 +233,18 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
         toDoTasksLine.setVisibility(View.INVISIBLE);
         completedTasksTextView.setTextColor(onColor);
         completedTasksLine.setVisibility(View.VISIBLE);
+        isToDoTasksSelected = false;
+        presenter.loadCompletedTasks(taskListId);
     }
 
     @Override
-    public void showToDoTasks() {
-        ArrayList<TaskViewModel> arrayList = new ArrayList<>();
-        arrayList.add(new TaskViewModel(
-                "1",
-                "Test Task",
-                new Date(),
-                new Date(),
-                "Short description",
-                true,
-                false));
-        arrayList.add(new TaskViewModel(
-                "2",
-                "Test Task 2",
-                new Date(),
-                new Date(),
-                "Short description 2",
-                false,
-                true));
-
-        TaskItemAdapter adapter = new TaskItemAdapter(arrayList, this);
+    public void showToDoTasks(ArrayList<TaskViewModel> toDoTasks) {
+        adapter = new TaskItemAdapter(toDoTasks, this);
         tasksRecyclerView.setAdapter(adapter);
     }
 
     @Override
-    public void showCompletedTasks() {
+    public void showCompletedTasks(ArrayList<TaskViewModel> completedTasks) {
 
     }
 
@@ -274,6 +261,13 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
     @Override
     public void showAddTaskActivity() {
         Toast.makeText(this, "Adding", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void notifyNewTaskInserted(int position) {
+        if (isToDoTasksSelected) {
+            adapter.notifyItemInserted(position);
+        }
     }
 
     public void setAddTaskEditTextOnFocusChange(boolean isFocused) {
@@ -351,5 +345,15 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
     @Override
     public void onImportantCheckBoxClick(TaskViewModel task) {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isToDoTasksSelected) {
+            presenter.loadToDoTasks(taskListId);
+        } else {
+            presenter.loadCompletedTasks(taskListId);
+        }
     }
 }
