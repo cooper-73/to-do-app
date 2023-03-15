@@ -133,7 +133,6 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
     @Override
     public void initUI() {
         tasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        tasksRecyclerView.setMotionEventSplittingEnabled(false);
     }
 
     @Override
@@ -277,6 +276,11 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
         adapter.notifyItemRangeChanged(position, itemCount);
     }
 
+    @Override
+    public void notifyTaskUpdated(int position) {
+        adapter.notifyItemChanged(position);
+    }
+
     public void setAddTaskEditTextOnFocusChange(boolean isFocused) {
         if (isFocused) {
             addTaskContainerLinearLayout.setBackground(new ColorDrawable(
@@ -350,8 +354,8 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
     }
 
     @Override
-    public void onImportantCheckBoxClick(TaskViewModel task) {
-
+    public void onImportantCheckBoxClick(TaskViewModel task, boolean isImportant, int position) {
+        presenter.updateTaskImportantFlag(task.getId(), isImportant, position);
     }
 
     @Override

@@ -19,7 +19,6 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.ViewHo
     private final ArrayList<TaskViewModel> tasks;
     private final Listener listener;
 
-
     public TaskItemAdapter(ArrayList<TaskViewModel> tasks, Listener listener) {
         this.tasks = tasks;
         this.listener = listener;
@@ -28,7 +27,7 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.ViewHo
     public interface Listener {
         void onCompletedCheckBoxClick(TaskViewModel task, boolean isCompleted, int position);
         void onRecyclerItemClick(TaskViewModel task);
-        void onImportantCheckBoxClick(TaskViewModel task);
+        void onImportantCheckBoxClick(TaskViewModel task, boolean isImportant, int position);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -74,10 +73,12 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.ViewHo
             }
         });
 
-//
-//        holder.importantCheckBox.setOnClickListener(v -> {
-//
-//        });
+        holder.importantCheckBox.setOnCheckedChangeListener(((buttonView, isChecked) -> {
+            if (buttonView.isPressed()) {
+                task.setImportant(isChecked);
+                listener.onImportantCheckBoxClick(task, isChecked, position);
+            }
+        }));
     }
 
     @Override

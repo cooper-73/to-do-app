@@ -19,5 +19,6 @@ public interface TaskListView extends BaseView {
     void showAddTaskActivity();
     void notifyNewTaskInserted(int position);
     void notifyTaskRemovedAndRangeChanged(int position, int itemCount);
+    void notifyTaskUpdated(int position);
     void finishActivity();
 }

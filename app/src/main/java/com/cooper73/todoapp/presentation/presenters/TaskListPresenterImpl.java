@@ -49,6 +49,11 @@ public class TaskListPresenterImpl implements TaskListPresenter, TaskListInterac
     }
 
     @Override
+    public void updateTaskImportantFlag(String taskId, boolean isImportant, int position) {
+        interactor.updateTaskImportantFlag(taskId, isImportant, position);
+    }
+
+    @Override
     public void addTask(String taskListId, String title) {
         interactor.addTask(taskListId, title);
     }
@@ -85,6 +90,11 @@ public class TaskListPresenterImpl implements TaskListPresenter, TaskListInterac
     public void successUpdateTaskCompletedFlag(String taskId, int position) {
         tasks.remove(position);
         MyApplication.getMainThreadHandler().post(() -> view.notifyTaskRemovedAndRangeChanged(position, tasks.size() - position));
+    }
+
+    @Override
+    public void successUpdateTaskImportantFlag(int position) {
+        MyApplication.getMainThreadHandler().post(() -> view.notifyTaskUpdated(position));
     }
 
     @Override

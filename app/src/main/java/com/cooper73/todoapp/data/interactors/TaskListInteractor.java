@@ -10,6 +10,7 @@ public interface TaskListInteractor {
     void getToDoTasks(String taskListId);
     void getCompletedTasks(String taskListId);
     void updateTaskCompletedFlag(String taskId, boolean isCompleted, int position);
+    void updateTaskImportantFlag(String taskId, boolean isImportant, int position);
     void addTask(String taskListId, String title);
 
     interface Callbacks {
@@ -18,6 +19,7 @@ public interface TaskListInteractor {
         void successGetToDoTasks(List<Task> toDoTasks);
         void successCompletedTasks(List<Task> completedTasks);
         void successUpdateTaskCompletedFlag(String taskId, int position);
+        void successUpdateTaskImportantFlag(int position);
         void successAddTask(Task newTask);
     }
 }
