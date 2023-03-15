@@ -5,5 +5,6 @@ public interface TaskListPresenter {
     void deleteTaskList(String taskListId);
     void loadToDoTasks(String taskListId);
     void loadCompletedTasks(String taskListId);
+    void updateTaskCompletedFlag(String taskId, boolean isCompleted, int position);
     void addTask(String taskListId, String title);
 }

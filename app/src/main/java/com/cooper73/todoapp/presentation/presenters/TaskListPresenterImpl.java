@@ -44,6 +44,11 @@ public class TaskListPresenterImpl implements TaskListPresenter, TaskListInterac
     }
 
     @Override
+    public void updateTaskCompletedFlag(String taskId, boolean isCompleted, int position) {
+        interactor.updateTaskCompletedFlag(taskId, isCompleted, position);
+    }
+
+    @Override
     public void addTask(String taskListId, String title) {
         interactor.addTask(taskListId, title);
     }
@@ -74,6 +79,12 @@ public class TaskListPresenterImpl implements TaskListPresenter, TaskListInterac
             tasks = TaskMapper.from(completedTasks);
             view.showToDoTasks(tasks);
         });
+    }
+
+    @Override
+    public void successUpdateTaskCompletedFlag(String taskId, int position) {
+        tasks.remove(position);
+        MyApplication.getMainThreadHandler().post(() -> view.notifyTaskRemovedAndRangeChanged(position, tasks.size() - position));
     }
 
     @Override

@@ -71,6 +71,21 @@ public class TaskListInteractorImpl implements TaskListInteractor {
     }
 
     @Override
+    public void updateTaskCompletedFlag(String taskId, boolean isCompleted, int position) {
+        TaskDao taskDao = MyApplication.getDatabase().taskDao();
+        MyApplication.getExecutorService().execute(() -> {
+            try {
+                Task task = taskDao.getById(taskId);
+                task.setCompleted(isCompleted);
+                taskDao.updateTask(task);
+                callbacks.successUpdateTaskCompletedFlag(taskId, position);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    @Override
     public void addTask(String taskListId, String title) {
         TaskDao taskDao = MyApplication.getDatabase().taskDao();
         MyApplication.getExecutorService().execute(() -> {

@@ -1,5 +1,6 @@
 package com.cooper73.todoapp.ui.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +19,14 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.ViewHo
     private final ArrayList<TaskViewModel> tasks;
     private final Listener listener;
 
+
     public TaskItemAdapter(ArrayList<TaskViewModel> tasks, Listener listener) {
         this.tasks = tasks;
         this.listener = listener;
     }
 
     public interface Listener {
-        void onCompletedCheckBoxClick(TaskViewModel task);
+        void onCompletedCheckBoxClick(TaskViewModel task, boolean isCompleted, int position);
         void onRecyclerItemClick(TaskViewModel task);
         void onImportantCheckBoxClick(TaskViewModel task);
     }
@@ -64,10 +66,14 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.ViewHo
             holder.detailsTextView.setVisibility(View.GONE);
         holder.importantCheckBox.setChecked(task.isImportant());
 
-//        holder.completedCheckBox.setOnCheckedChangeListener(
-//
-//        });
-//
+        holder.completedCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (buttonView.isPressed()) {
+                Log.i("DELETE", task.getTitle());
+                task.setCompleted(isChecked);
+                listener.onCompletedCheckBoxClick(task, isChecked, position);
+            }
+        });
+
 //
 //        holder.importantCheckBox.setOnClickListener(v -> {
 //
