@@ -13,7 +13,7 @@ import java.util.UUID;
 @Entity(
         tableName = "task_lists",
         foreignKeys = {
-            @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "user_id")
+            @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "user_id", onDelete = ForeignKey.CASCADE)
         },
         indices = @Index(value="user_id")
 )
