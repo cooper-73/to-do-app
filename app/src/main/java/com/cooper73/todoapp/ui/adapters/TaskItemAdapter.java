@@ -1,6 +1,5 @@
 package com.cooper73.todoapp.ui.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +66,6 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.ViewHo
 
         holder.completedCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (buttonView.isPressed()) {
-                Log.i("DELETE", task.getTitle());
                 task.setCompleted(isChecked);
                 listener.onCompletedCheckBoxClick(task, isChecked, position);
             }
