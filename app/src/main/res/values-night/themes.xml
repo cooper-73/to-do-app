@@ -1,16 +1,45 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.ToDoApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/violets_are_blue</item>
+        <item name="colorPrimaryVariant">@color/dark_slate_blue</item>
+        <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/fun_green</item>
+        <item name="colorSecondaryVariant">@color/aquamarine</item>
+        <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+        <!-- Background brand color -->
+        <item name="android:colorBackground">@color/raisin_black</item>
+        <item name="colorOnBackground">@color/platinum</item>
+        <!-- Surface brand color-->
+        <item name="colorSurface">@color/raisin_black</item>
+        <item name="colorOnSurface">@color/platinum</item>
+        <item name="colorOnSurfaceMediumBrush">@color/platinum_60</item>
+        <item name="colorOnSurfaceLowBrush">@color/platinum_38</item>
+        <item name="colorOnSurfaceDraggedBrush">@color/platinum_16</item>
+        <!-- Error brand color-->
+        <item name="colorError">@color/brink_pink</item>
+        <item name="colorOnError">@color/white</item>
+    </style>
+
+    <style name="CompletedCheckBox" parent="Base.Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:theme">@style/CompletedCheckBoxTheme</item>
+    </style>
+
+    <style name="CompletedCheckBoxTheme">
+        <item name="colorControlNormal">?colorOnSurfaceMediumBrush</item>
+        <item name="colorControlActivated">?colorPrimary</item>
+    </style>
+
+    <style name="ImportantCheckBox" parent="Base.Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:theme">@style/ImportantCheckBoxTheme</item>
+    </style>
+
+    <style name="ImportantCheckBoxTheme">
+        <item name="colorControlNormal">?colorOnSurfaceMediumBrush</item>
+        <item name="colorControlActivated">?colorError</item>
     </style>
 </resources>

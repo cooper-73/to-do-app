@@ -18,4 +18,12 @@
     <color name="baltic_sea_12">#1F1C1B1F</color>
     <color name="baltic_sea_38">#611C1B1F</color>
     <color name="baltic_sea_16">#291C1B1F</color>
+    <color name="violets_are_blue">#9373FF</color>
+    <color name="dark_slate_blue">#544794</color>
+    <color name="raisin_black">#252429</color>
+    <color name="platinum">#E6E1E5</color>
+    <color name="platinum_38">#61E6E1E5</color> low
+    <color name="platinum_60">#99E6E1E5</color> medium
+    <color name="platinum_16">#29E6E1E5</color> dragged
+    E6E1E5
 </resources>
