@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cooper73.todoapp.R;
+import com.cooper73.todoapp.presentation.presenters.ImportantTasksPresenter;
+import com.cooper73.todoapp.presentation.presenters.ImportantTasksPresenterImpl;
 import com.cooper73.todoapp.ui.adapters.TaskItemAdapter;
 import com.cooper73.todoapp.ui.viewmodels.TaskViewModel;
 import com.cooper73.todoapp.ui.views.HighlightedTasksView;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 public class ImportantTasksActivity extends AppCompatActivity implements HighlightedTasksView, TaskItemAdapter.Listener {
     private RecyclerView importantTasksRecyclerView;
     private TaskItemAdapter adapter;
+    private ImportantTasksPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +37,7 @@ public class ImportantTasksActivity extends AppCompatActivity implements Highlig
 
     @Override
     public void initPresenter() {
-
+        presenter = new ImportantTasksPresenterImpl(this);
     }
 
     @Override
@@ -64,18 +67,19 @@ public class ImportantTasksActivity extends AppCompatActivity implements Highlig
 
     @Override
     public void showTasks(ArrayList<TaskViewModel> tasks) {
-        adapter = new TaskItemAdapter(new ArrayList<>(), this);
+        adapter = new TaskItemAdapter(tasks, this);
         importantTasksRecyclerView.setAdapter(adapter);
     }
 
     @Override
     public void notifyTaskRemovedAndRangeChanged(int position, int itemCount) {
-
+        adapter.notifyItemRemoved(position);
+        adapter.notifyItemRangeChanged(position, itemCount);
     }
 
     @Override
     public void notifyTaskUpdated(int position) {
-
+        adapter.notifyItemChanged(position);
     }
 
     public int getColorFromAttribute(int attributeResId) {
@@ -86,7 +90,7 @@ public class ImportantTasksActivity extends AppCompatActivity implements Highlig
 
     @Override
     public void onCompletedCheckBoxClick(TaskViewModel task, boolean isCompleted, int position) {
-
+        presenter.updateTaskCompletedFlag(task.getId(), isCompleted, position);
     }
 
     @Override
@@ -96,11 +100,12 @@ public class ImportantTasksActivity extends AppCompatActivity implements Highlig
 
     @Override
     public void onImportantCheckBoxClick(TaskViewModel task, boolean isImportant, int position) {
-
+        presenter.updateTaskImportantFlag(task.getId(), isImportant, position);
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onResume() {
+        super.onResume();
+        presenter.loadImportantTask("d1e0c4fc-207c-41fb-ac57-98a383ec612e");
     }
 }
