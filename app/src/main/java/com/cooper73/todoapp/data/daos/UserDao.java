@@ -8,8 +8,8 @@ import com.cooper73.todoapp.data.entities.User;
 
 @Dao
 public interface UserDao {
-    @Query("SELECT * FROM users LIMIT 1")
-    User getUser();
+    @Query("SELECT * FROM users WHERE email = :email")
+    User getUserByEmail(String email);
 
     @Insert
     void insertUser(User user);
