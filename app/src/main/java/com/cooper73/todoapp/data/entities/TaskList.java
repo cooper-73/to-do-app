@@ -28,14 +28,18 @@ public class TaskList {
     @ColumnInfo(name = "title")
     private String title;
 
-    @ColumnInfo(name = "created_at")
+    @ColumnInfo(name = "created_at", defaultValue = "CURRENT_TIMESTAMP")
     private Date createdAt;
+
+    @ColumnInfo(name = "updated_at", defaultValue = "CURRENT_TIMESTAMP")
+    private Date updatedAt;
 
     public TaskList(String userId, String title) {
         this.id = UUID.randomUUID().toString();
         this.userId = userId;
         this.title = title;
         this.createdAt = new Date();
+        this.updatedAt = this.createdAt;
     }
 
     @NonNull
@@ -69,5 +73,13 @@ public class TaskList {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

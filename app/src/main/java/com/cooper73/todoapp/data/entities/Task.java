@@ -31,6 +31,9 @@ public class Task {
     @ColumnInfo(name = "created_at", defaultValue = "CURRENT_TIMESTAMP")
     private Date createdAt;
 
+    @ColumnInfo(name = "updated_at", defaultValue = "CURRENT_TIMESTAMP")
+    private Date updatedAt;
+
     @ColumnInfo(name = "due_date", defaultValue = "NULL")
     private Date dueDate;
 
@@ -47,6 +50,8 @@ public class Task {
         this.id = UUID.randomUUID().toString();
         this.taskListId = taskListId;
         this.title = title;
+        this.createdAt = new Date();
+        this.updatedAt = this.createdAt;
     }
 
     @NonNull
@@ -80,6 +85,14 @@ public class Task {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public Date getDueDate() {

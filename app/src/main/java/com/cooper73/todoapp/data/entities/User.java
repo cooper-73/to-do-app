@@ -3,11 +3,18 @@ package com.cooper73.todoapp.data.entities;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import java.util.Date;
 import java.util.UUID;
 
-@Entity(tableName = "users")
+@Entity(
+        tableName = "users",
+        indices = {
+                @Index(value = "email", unique = true)
+        }
+)
 public class User {
     @PrimaryKey
     @NonNull
@@ -19,10 +26,22 @@ public class User {
     @ColumnInfo(name = "last_name")
     private String lastName;
 
-    public User(String firstName, String lastName) {
+    @ColumnInfo(name = "email")
+    private String email;
+
+    @ColumnInfo(name = "created_at")
+    private Date createdAt;
+
+    @ColumnInfo(name = "updated_at")
+    private Date updatedAt;
+
+    public User(String firstName, String lastName, String email) {
         this.id = UUID.randomUUID().toString();
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
+        this.createdAt = new Date();
+        this.updatedAt = this.createdAt;
     }
 
     @NonNull
@@ -48,5 +67,29 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
