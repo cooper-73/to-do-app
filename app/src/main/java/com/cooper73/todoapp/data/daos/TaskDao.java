@@ -24,6 +24,10 @@ public interface TaskDao {
             " LEFT JOIN users ON task_lists.user_id = users.id WHERE users.id = :userId AND tasks.is_important = 1")
     List<Task> getAllImportantTasksByUserId(String userId);
 
+    @Query("SELECT tasks.* FROM tasks LEFT JOIN task_lists ON tasks.task_list_id = task_lists.id" +
+            " LEFT JOIN users ON task_lists.user_id = users.id WHERE users.id = :userId")
+    List<Task> getAllTasksByUserId(String userId);
+
     @Insert
     void insertNewTask(Task task);
 
