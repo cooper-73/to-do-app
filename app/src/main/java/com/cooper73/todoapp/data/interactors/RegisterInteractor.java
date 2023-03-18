@@ -8,5 +8,6 @@ public interface RegisterInteractor {
 
     interface Callbacks {
         void successRegisterUser(User user);
+        void errorEmailAlreadyUsed();
     }
 }
