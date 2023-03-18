@@ -87,7 +87,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView, InputDi
 
     @Override
     public void showAllTasks() {
-
+        Intent intent = new Intent(this, AllTasksActivity.class);
+        startActivity(intent);
     }
 
     @Override

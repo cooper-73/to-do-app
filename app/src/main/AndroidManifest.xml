@@ -53,6 +53,14 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".ui.activities.AllTasksActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.activities.HomeActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.activities.TaskListActivity"
             android:exported="false"
             android:parentActivityName=".ui.activities.HomeActivity">
