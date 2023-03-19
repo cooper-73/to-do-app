@@ -1,5 +1,6 @@
 package com.cooper73.todoapp.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,11 +10,14 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.cooper73.todoapp.R;
+import com.cooper73.todoapp.presentation.presenters.LoginPresenter;
+import com.cooper73.todoapp.presentation.presenters.LoginPresenterImpl;
 import com.cooper73.todoapp.ui.views.LoginView;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
     private EditText emailEditText;
     private Button loginButton;
+    private LoginPresenter presenter;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +32,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void initPresenter() {
-
+        presenter = new LoginPresenterImpl(this);
     }
 
     @Override
@@ -55,8 +59,26 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         }
     }
 
+    public void notifyEmptyEmail() {
+        emailEditText.setText("");
+        emailEditText.setError("The item cannot be empty.");
+    }
+
     @Override
     public void onLoginButtonClick() {
         Toast.makeText(this, "Login...", Toast.LENGTH_SHORT).show();
+        String email = emailEditText.getText().toString();
+        presenter.loginUser(email);
+    }
+
+    @Override
+    public void notifySuccessLogin() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void notifyErrorNoUserFound() {
+        emailEditText.setError("Not found users with this email");
     }
 }

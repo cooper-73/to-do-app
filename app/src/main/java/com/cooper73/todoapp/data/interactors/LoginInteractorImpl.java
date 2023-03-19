@@ -17,7 +17,11 @@ public class LoginInteractorImpl implements LoginInteractor {
         MyApplication.getExecutorService().execute(() -> {
             try {
                 User user = userDao.getUserByEmail(email);
-                callbacks.successLoginUser(user);
+                if (user != null) {
+                    callbacks.successLoginUser(user);
+                } else {
+                    callbacks.errorNoExistsUser();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
