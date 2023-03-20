@@ -57,4 +57,7 @@
     <string name="delete_list_dialog_msg">List will be permanently deleted</string>
     <string name="delete_list_dialog_delete">Delete</string>
     <string name="delete_list_dialog_cancel">Cancel</string>
+    <!--    Shared Preferences Keys-->
+    <string name="shared_preferences_on_boarding">hasSeenOnBoarding</string>
+    <string name="shared_preferences_user_id">userId</string>
 </resources>
