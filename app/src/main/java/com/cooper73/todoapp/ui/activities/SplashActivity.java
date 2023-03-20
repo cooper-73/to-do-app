@@ -2,6 +2,7 @@ package com.cooper73.todoapp.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.animation.Animation;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.cooper73.todoapp.PreferencesHelper;
 import com.cooper73.todoapp.R;
 import com.cooper73.todoapp.ui.views.SplashView;
 
@@ -102,7 +104,21 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
 
     @Override
     public void goNextActivity() {
-        Intent intent = new Intent(this, WelcomeActivity.class);
+        SharedPreferences sharedPreferences = new PreferencesHelper(this).getSharedPreferences();
+        boolean hasSeenOnBoarding = sharedPreferences
+                    .getBoolean(getString(R.string.shared_preferences_on_boarding), false);
+        String userId = sharedPreferences
+                .getString(getString(R.string.shared_preferences_user_id), null);
+        Intent intent;
+
+        if (userId != null) {
+            intent = new Intent(this, HomeActivity.class);
+        } else if (hasSeenOnBoarding) {
+            intent = new Intent(this, StartActivity.class);
+        } else {
+            intent = new Intent(this, WelcomeActivity.class);
+        }
+
         startActivity(intent);
         overridePendingTransition(0, 0);
         finish();
