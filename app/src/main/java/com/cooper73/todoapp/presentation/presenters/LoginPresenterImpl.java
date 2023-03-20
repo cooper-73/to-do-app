@@ -36,7 +36,7 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.Callb
         SharedPreferences.Editor editor = new PreferencesHelper((Context) view).getEditor();
         editor.putString(((Context) view).getString(R.string.shared_preferences_user_id), user.getId());
         editor.apply();
-        MyApplication.getMainThreadHandler().post(() -> view.notifySuccessLogin());
+        MyApplication.getMainThreadHandler().post(() -> view.notifySuccessLogin(user.getId()));
     }
 
     @Override

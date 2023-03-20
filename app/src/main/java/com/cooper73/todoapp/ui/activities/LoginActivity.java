@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,15 +65,17 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void onLoginButtonClick() {
-        Toast.makeText(this, "Login...", Toast.LENGTH_SHORT).show();
         String email = emailEditText.getText().toString();
         presenter.loginUser(email);
     }
 
     @Override
-    public void notifySuccessLogin() {
+    public void notifySuccessLogin(String userId) {
         Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("userId", userId);
         startActivity(intent);
+        overridePendingTransition(0, 0);
+        finish();
     }
 
     @Override

@@ -15,11 +15,12 @@ public class HomePresenterImpl implements HomePresenter, HomeInteractor.Callback
     private final HomeView view;
     private final HomeInteractor homeInteractor;
     private ArrayList<TaskListViewModel> taskLists;
-    String userId = "d1e0c4fc-207c-41fb-ac57-98a383ec612e";
+    private final String userId;
 
-    public HomePresenterImpl(HomeView view) {
+    public HomePresenterImpl(HomeView view, String userId) {
         this.view = view;
         this.homeInteractor = new HomeInteractorImpl(this);
+        this.userId = userId;
     }
 
     @Override

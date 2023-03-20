@@ -113,6 +113,7 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
 
         if (userId != null) {
             intent = new Intent(this, HomeActivity.class);
+            intent.putExtra("userId", userId);
         } else if (hasSeenOnBoarding) {
             intent = new Intent(this, StartActivity.class);
         } else {

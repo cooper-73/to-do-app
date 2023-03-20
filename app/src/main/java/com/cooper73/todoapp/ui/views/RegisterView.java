@@ -7,5 +7,5 @@ public interface RegisterView extends BaseView {
     void notifyEmptyLastName();
     void notifyEmptyEmail();
     void notifyEmailAlreadyUsed();
-    void notifySuccessRegister();
+    void notifySuccessRegister(String userId);
 }

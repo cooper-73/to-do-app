@@ -28,11 +28,13 @@ public class HomeActivity extends AppCompatActivity implements HomeView, InputDi
     private TextView initialsTextView, nameTextView, newListTextView;
     private HomePresenter presenter;
     private TaskListItemAdapter adapter;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        getExtras();
         hideActionBar();
         initPresenter();
         bindUI();
@@ -42,7 +44,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, InputDi
 
     @Override
     public void initPresenter() {
-        presenter = new HomePresenterImpl(HomeActivity.this);
+        presenter = new HomePresenterImpl(HomeActivity.this, userId);
     }
 
     @Override
@@ -66,6 +68,11 @@ public class HomeActivity extends AppCompatActivity implements HomeView, InputDi
         importantLinearLayout.setOnClickListener(view -> showImportantTasks());
         tasksLinearLayout.setOnClickListener(view -> showAllTasks());
         newListTextView.setOnClickListener(view -> showCreateListDialog());
+    }
+
+    @Override
+    public void getExtras() {
+        userId = getIntent().getStringExtra("userId");
     }
 
     @Override

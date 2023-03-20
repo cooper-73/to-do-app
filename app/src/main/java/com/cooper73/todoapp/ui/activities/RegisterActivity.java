@@ -93,8 +93,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     }
 
     @Override
-    public void notifySuccessRegister() {
+    public void notifySuccessRegister(String userId) {
         Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("userId", userId);
         startActivity(intent);
         overridePendingTransition(0, 0);
         finish();

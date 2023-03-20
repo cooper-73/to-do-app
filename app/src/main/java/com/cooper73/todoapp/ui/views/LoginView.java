@@ -4,6 +4,6 @@ public interface LoginView extends BaseView {
     void setActionBar();
     void notifyEmptyEmail();
     void onLoginButtonClick();
-    void notifySuccessLogin();
+    void notifySuccessLogin(String userId);
     void notifyErrorNoUserFound();
 }
