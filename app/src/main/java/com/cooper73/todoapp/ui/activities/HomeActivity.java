@@ -1,6 +1,7 @@
 package com.cooper73.todoapp.ui.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.cooper73.todoapp.PreferencesHelper;
 import com.cooper73.todoapp.R;
 import com.cooper73.todoapp.presentation.presenters.HomePresenter;
 import com.cooper73.todoapp.presentation.presenters.HomePresenterImpl;
@@ -34,7 +36,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, InputDi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        getExtras();
+        getUserId();
         hideActionBar();
         initPresenter();
         bindUI();
@@ -71,8 +73,17 @@ public class HomeActivity extends AppCompatActivity implements HomeView, InputDi
     }
 
     @Override
-    public void getExtras() {
+    public void getUserId() {
         userId = getIntent().getStringExtra("userId");
+        if (userId == null) {
+            SharedPreferences sharedPreferences = new PreferencesHelper(this).getSharedPreferences();
+            userId = sharedPreferences.getString(getString(R.string.shared_preferences_user_id), null);
+            if (userId == null) {
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
     }
 
     @Override
