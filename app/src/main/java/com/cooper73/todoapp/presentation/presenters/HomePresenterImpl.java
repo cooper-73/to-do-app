@@ -15,31 +15,19 @@ public class HomePresenterImpl implements HomePresenter, HomeInteractor.Callback
     private final HomeView view;
     private final HomeInteractor homeInteractor;
     private ArrayList<TaskListViewModel> taskLists;
-    private final String userId;
 
-    public HomePresenterImpl(HomeView view, String userId) {
+    public HomePresenterImpl(HomeView view) {
         this.view = view;
         this.homeInteractor = new HomeInteractorImpl(this);
-        this.userId = userId;
     }
 
     @Override
-    public void loadImportantTasks() {
-
-    }
-
-    @Override
-    public void loadAllTasks() {
-
-    }
-
-    @Override
-    public void loadAllTaskLists() {
+    public void loadAllTaskLists(String userId) {
         homeInteractor.getAllTaskLists(userId);
     }
 
     @Override
-    public void createTaskList(String title) {
+    public void createTaskList(String userId, String title) {
         homeInteractor.createTaskList(userId, title);
     }
 

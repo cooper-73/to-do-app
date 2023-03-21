@@ -5,7 +5,6 @@ import com.cooper73.todoapp.ui.viewmodels.TaskListViewModel;
 import java.util.ArrayList;
 
 public interface HomeView extends BaseView {
-    void getUserId();
     void hideActionBar();
     void showProfile();
     void showImportantTasks();

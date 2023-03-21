@@ -36,7 +36,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView, InputDi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        getUserId();
         hideActionBar();
         initPresenter();
         bindUI();
@@ -46,7 +45,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, InputDi
 
     @Override
     public void initPresenter() {
-        presenter = new HomePresenterImpl(HomeActivity.this, userId);
+        presenter = new HomePresenterImpl(HomeActivity.this);
     }
 
     @Override
@@ -70,20 +69,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView, InputDi
         importantLinearLayout.setOnClickListener(view -> showImportantTasks());
         tasksLinearLayout.setOnClickListener(view -> showAllTasks());
         newListTextView.setOnClickListener(view -> showCreateListDialog());
-    }
-
-    @Override
-    public void getUserId() {
-        userId = getIntent().getStringExtra("userId");
-        if (userId == null) {
-            SharedPreferences sharedPreferences = new PreferencesHelper(this).getSharedPreferences();
-            userId = sharedPreferences.getString(getString(R.string.shared_preferences_user_id), null);
-            if (userId == null) {
-                Intent intent = new Intent(this, StartActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }
     }
 
     @Override
@@ -139,7 +124,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, InputDi
     public void onDialogPositiveClick(InputDialogView dialog) {
         if (dialog != null) {
             ((DialogFragment) dialog).dismiss();
-            presenter.createTaskList(dialog.getUserInput());
+            presenter.createTaskList(userId, dialog.getUserInput());
         }
     }
 
@@ -156,6 +141,13 @@ public class HomeActivity extends AppCompatActivity implements HomeView, InputDi
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.loadAllTaskLists();
+        SharedPreferences sharedPreferences = new PreferencesHelper(this).getSharedPreferences();
+        userId = sharedPreferences.getString(getString(R.string.shared_preferences_user_id), null);
+        if (userId == null) {
+            Intent intent = new Intent(this, StartActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        presenter.loadAllTaskLists(userId);
     }
 }
