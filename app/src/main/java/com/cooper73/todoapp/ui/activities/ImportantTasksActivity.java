@@ -1,5 +1,7 @@
 package com.cooper73.todoapp.ui.activities;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -10,6 +12,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.cooper73.todoapp.PreferencesHelper;
 import com.cooper73.todoapp.R;
 import com.cooper73.todoapp.presentation.presenters.ImportantTasksPresenter;
 import com.cooper73.todoapp.presentation.presenters.ImportantTasksPresenterImpl;
@@ -106,6 +109,15 @@ public class ImportantTasksActivity extends AppCompatActivity implements Highlig
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.loadImportantTask("d1e0c4fc-207c-41fb-ac57-98a383ec612e");
+        SharedPreferences sharedPreferences = new PreferencesHelper(this).getSharedPreferences();
+        String userId = sharedPreferences.getString(getString(R.string.shared_preferences_user_id), null);
+        if (userId != null) {
+            presenter.loadImportantTask(userId);
+        } else {
+            Intent intent = new Intent(this, StartActivity.class);
+            startActivity(intent);
+            overridePendingTransition(0 , 0);
+            finish();
+        }
     }
 }
