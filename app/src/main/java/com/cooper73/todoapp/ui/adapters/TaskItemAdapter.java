@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,6 +33,7 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final CheckBox completedCheckBox, importantCheckBox;
         private final TextView titleTextView, detailsTextView;
+        private final LinearLayout infoLinearLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -40,6 +42,7 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.ViewHo
             titleTextView = itemView.findViewById(R.id.tv_task_list_task_title);
             detailsTextView = itemView.findViewById(R.id.tv_task_list_task_details);
             importantCheckBox = itemView.findViewById(R.id.chb_task_list_task_important);
+            infoLinearLayout = itemView.findViewById(R.id.ll_task_list_task_info);
         }
     }
 
@@ -70,6 +73,8 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.ViewHo
                 listener.onCompletedCheckBoxClick(task, isChecked, position);
             }
         });
+
+        holder.infoLinearLayout.setOnClickListener(v -> listener.onRecyclerItemClick(task));
 
         holder.importantCheckBox.setOnCheckedChangeListener(((buttonView, isChecked) -> {
             if (buttonView.isPressed()) {

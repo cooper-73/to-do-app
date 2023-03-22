@@ -1,6 +1,7 @@
 package com.cooper73.todoapp.ui.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
@@ -350,7 +351,8 @@ public class TaskListActivity extends AppCompatActivity implements TaskListView,
 
     @Override
     public void onRecyclerItemClick(TaskViewModel task) {
-
+        Intent intent = new Intent(this, TaskActivity.class);
+        startActivity(intent);
     }
 
     @Override
