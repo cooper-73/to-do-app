@@ -20,6 +20,7 @@
         <item name="colorOnSurfaceMediumBrush">@color/baltic_sea_60</item>
         <item name="colorOnSurfaceLowBrush">@color/baltic_sea_38</item>
         <item name="colorOnSurfaceDraggedBrush">@color/baltic_sea_16</item>
+        <item name="colorOnSurfacePressedBrush">@color/baltic_sea_12</item>
         <!-- Error brand color-->
         <item name="colorError">@color/brink_pink</item>
         <item name="colorOnError">@color/white</item>

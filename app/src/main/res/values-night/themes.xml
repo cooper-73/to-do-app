@@ -20,6 +20,7 @@
         <item name="colorOnSurfaceMediumBrush">@color/platinum_60</item>
         <item name="colorOnSurfaceLowBrush">@color/platinum_38</item>
         <item name="colorOnSurfaceDraggedBrush">@color/platinum_16</item>
+        <item name="colorOnSurfacePressedBrush">@color/platinum_12</item>
         <!-- Error brand color-->
         <item name="colorError">@color/brink_pink</item>
         <item name="colorOnError">@color/white</item>

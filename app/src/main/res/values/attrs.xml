@@ -3,4 +3,5 @@
     <attr name="colorOnSurfaceMediumBrush" format="reference" />
     <attr name="colorOnSurfaceLowBrush" format="reference" />
     <attr name="colorOnSurfaceDraggedBrush" format="reference" />
+    <attr name="colorOnSurfacePressedBrush" format="reference" />
 </resources>

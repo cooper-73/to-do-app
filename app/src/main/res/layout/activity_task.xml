@@ -1,8 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.activities.TaskActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center_vertical"
+        >
+
+        <CheckBox
+            style="@style/CompletedCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            tools:ignore="DuplicateSpeakableTextCheck"
+            />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:hint="@string/task_title_hint"
+            android:autofillHints=""
+            android:inputType="textCapSentences"
+            android:textSize="22sp"
+            android:textColor="?colorOnSurface"
+            android:textColorHint="?colorOnSurfaceMediumBrush"
+            tools:text="Task Name"
+            />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:button="@drawable/checkbox_important"
+            style="@style/ImportantCheckBox"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="?colorOnSurfacePressedBrush"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:src="@drawable/ic_baseline_calendar_today_24"
+            android:contentDescription="@string/task_calendar_icon_desc"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="@string/task_add_due_date_msg"
+            android:textColor="?colorOnSurfaceMediumBrush"
+            android:textSize="16sp"
+            tools:ignore="TextContrastCheck"
+            />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/task_delete_due_date_desc"
+            android:padding="8dp"
+            android:src="@drawable/ic_baseline_close_24"
+            tools:ignore="TouchTargetSizeCheck"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="?colorOnSurfacePressedBrush"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="top"
+        android:hint="@string/task_description_hint"
+        android:autofillHints=""
+        android:inputType="textCapSentences"
+        android:textSize="16sp"
+        android:textColor="?colorOnSurface"
+        android:textColorHint="?colorOnSurfaceMediumBrush"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:gravity="center_vertical"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:textColor="?colorOnSurfaceMediumBrush"
+            android:textStyle="bold"
+            tools:text="Created on Mon, 28 March"
+            />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/task_delete_task_desc"
+            android:padding="10dp"
+            android:src="@drawable/ic_baseline_delete_outline_24"
+            app:tint="?colorOnSurfaceMediumBrush"
+            tools:ignore="TouchTargetSizeCheck"
+            />
+
+    </LinearLayout>
 
 </LinearLayout>

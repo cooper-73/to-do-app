@@ -94,7 +94,9 @@
         <activity
             android:name=".ui.activities.TaskActivity"
             android:exported="false"
-            android:parentActivityName=".ui.activities.TaskListActivity">
+            android:parentActivityName=".ui.activities.TaskListActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
